@@ -13,7 +13,10 @@ const clientRoutes = ["/",
 "/model/:id"];
 
 router.use(async (req, res, next) => {
-  const token = await getInternalToken();
+  try {const token = await getInternalToken();}
+  catch(err) {
+    console.log(err)
+  }
   req.oauth_token = token;
   req.oauth_client = getClient();
   next();
