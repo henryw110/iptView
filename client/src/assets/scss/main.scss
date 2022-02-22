@@ -1,0 +1,24 @@
+@import "./foundation/settings";
+@import "~foundation-sites/scss/foundation";
+@include foundation-everything;
+// place global css here
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+
+#forgeViewer {
+  padding:40px;
+  
+  width: 50%;
+  height:50%;
+  position:absolute
+
+}
