@@ -4,6 +4,8 @@ import { User } from "../../models/index.js";
 
 class userSeeder {
   static async seed() {
+    process.env.START_DATE = Date.now()
+    console.log(process.env.START_DATE)
     const modelData = [
       {
         email: process.env.ADMIN_EMAIL,

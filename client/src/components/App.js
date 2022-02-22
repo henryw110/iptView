@@ -33,7 +33,7 @@ const App = (props) => {
   useEffect(() => {
     //launchViewer(URNs[1])
     fetchCurrentUser()
-  }, [])
+  }, []) 
 
 
   return (

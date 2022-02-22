@@ -21,7 +21,7 @@ router.use(async (req, res, next) => {
 
 
 router.get(clientRoutes, async (req, res) => {
-  const buckets = await new BucketsApi().getBuckets({ limit: 100 }, req.oauth_client, req.oauth_token);
+  console.log(config.date)
   res.sendFile(getClientIndexPath());
 });
 

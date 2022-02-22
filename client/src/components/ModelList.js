@@ -9,15 +9,40 @@ const ModelList = (props) => {
   const getModels = async () => {
     const response = await fetch("/api/v1/listModels")
     const modelsList = await response.json()
-    console.log(modelsList)
-    setModels(modelsList.map((model, index) => {
-      return (
-        < ModelTile
-          key={index}
-          urn={model.id}
-          name={model.text}
-        />
-      )
+    setModels(modelsList.map((model, index, array) => {
+      if (index % 4 === 0) {
+        return (
+          <div className="grid-x" key = {parseInt(index/4)}>
+            <div className="small-3 cell">
+              < ModelTile
+                urn={array[index].id}
+                name={array[index].text}
+              />
+            </div>
+            <div className="small-3 cell">
+            < ModelTile
+                urn={array[index+1].id}
+                name={array[index+1].text}
+              />
+            </div>
+            <div className="small-3 cell">
+            < ModelTile
+                urn={array[index+2].id}
+                name={array[index+2].text}
+              />
+            </div>
+            <div className="small-3 cell">
+            < ModelTile
+                urn={array[index+3].id}
+                name={array[index+3].text}
+              />
+            </div>
+          </div>
+
+
+        )
+      }
+
     }))
   }
   useEffect(() => {

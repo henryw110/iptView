@@ -20,7 +20,19 @@ listModelsRouter.use(async (req, res, next) => {
 
 
 listModelsRouter.get("/", async (req, res, next) => {
+/* try {
+  const testObjects =await new ObjectsApi().getObjects("haha", { limit: 100 }, req.oauth_client, req.oauth_token);
+}
+catch (err){
+  console.log(err)
+} */
   const buckets = await new BucketsApi().getBuckets({ limit: 100 }, req.oauth_client, req.oauth_token)
+  /* const deletedBuckets = await Promise.all(
+    buckets.body.items.map(async(item)=> {
+    return await new BucketsApi().deleteBucket(item.bucketKey,req.oauth_client,req.oauth_token)
+    }
+  )) */
+  //console.log(deletedBuckets.body)
   const returnArray =  (await Promise.all(buckets.body.items.map(async(item) => {
   const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
   console.log(objects.body.items)  

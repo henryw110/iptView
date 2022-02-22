@@ -3,6 +3,7 @@ import getNodeEnv from "./config/getNodeEnv.js";
 import getDatabaseUrl from "./config/getDatabaseUrl.cjs";
 
 export default {
+  date:process.env.START_DATE,
   credentials: {
     client_id: process.env.FORGE_CLIENT_ID,
     client_secret: process.env.FORGE_CLIENT_SECRET,
@@ -10,7 +11,7 @@ export default {
 },
 scopes: {
     // Required scopes for the server-side application
-    internal: ['bucket:create', 'bucket:read', 'data:read', 'data:create', 'data:write'],
+    internal: ['bucket:create', 'bucket:read', 'data:read', 'data:create', 'data:write',"bucket:delete"],
     // Required scope for the client-side viewer
     public: ['viewables:read']
 },
