@@ -33,29 +33,35 @@ const App = (props) => {
   useEffect(() => {
     //launchViewer(URNs[1])
     fetchCurrentUser()
-  }, []) 
+  }, [])
 
 
   return (
     <div>
+      <meta charset="utf-8" />
+
+      <ink rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default/style.min.css" />
+      <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css" type="text/css"/>
+      <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+
       <Router>
-        <TopBar user={currentUser} />
-        <Switch>
-          <AuthenticatedRoute
-            path="/bucket/new"
-            component={NewBucketForm}
-            exact={true}
-            user={currentUser}
-          />
-          <Route exact path="/">
-            <ModelList/>
-          </Route>
-          <Route exact path="/users/new" component={RegistrationForm} />
-          <Route exact path="/user-sessions/new" component={SignInForm} />
-          <Route exact path="/model/:id">
-            <ShowModel user={currentUser} />
-          </Route>
-        </Switch>
+      <TopBar user={currentUser} />
+      <Switch>
+      <AuthenticatedRoute
+      path="/bucket/new"
+      component={NewBucketForm}
+      exact={true}
+      user={currentUser}
+      />
+      <Route exact path="/">
+      <ModelList/>
+      </Route>
+      <Route exact path="/users/new" component={RegistrationForm} />
+      <Route exact path="/user-sessions/new" component={SignInForm} />
+      <Route exact path="/model/:id">
+      <ShowModel user={currentUser} />
+      </Route>
+      </Switch>
       </Router>
     </div>
   );
