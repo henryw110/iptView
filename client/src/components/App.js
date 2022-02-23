@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route,Redirect } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
@@ -39,23 +39,24 @@ const App = (props) => {
   return (
     <div>
       <Router>
-      <TopBar user={currentUser} />
-      <Switch>
-        <AuthenticatedRoute
-        exact = {true}
-        path = "/model/new"
-        component = {NewModelForm}
-        user={currentUser}
-        />
-      <Route exact path="/">
-      <ModelList/>
-      </Route>
-      <Route exact path="/users/new" component={RegistrationForm} />
-      <Route exact path="/user-sessions/new" component={SignInForm} />
-      <Route exact path="/model/:id">
-      <ShowModel user={currentUser} />
-      </Route>
-      </Switch>
+        <TopBar user={currentUser} />
+        <Switch>
+          <AuthenticatedRoute
+            exact={true}
+            path="/model/new"
+            component={NewModelForm}
+            user={currentUser}
+          />
+          <Route exact path="/">
+            <Redirect to="/user/all" />
+          </Route>
+          <Route exact path="/user/:id" component={ModelList} />
+          <Route exact path="/users/new" component={RegistrationForm} />
+          <Route exact path="/user-sessions/new" component={SignInForm} />
+          <Route exact path="/model/:id">
+            <ShowModel user={currentUser} />
+          </Route>
+        </Switch>
       </Router>
     </div>
   );

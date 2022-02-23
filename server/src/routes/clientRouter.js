@@ -10,7 +10,8 @@ const router = new express.Router();
 const clientRoutes = ["/",
   "/user-sessions/new",
   "/users/new",
-  "/model/:id"];
+  "/model/:id",
+  "/user/:id"];
 
 router.use(async (req, res, next) => {
   try {

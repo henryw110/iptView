@@ -17,7 +17,23 @@ listModelsRouter.use(async (req, res, next) => {
   req.oauth_client = getClient();
   next();
 });
+listModelsRouter.get("/all", async (req, res, next) => {
+  const buckets = await new BucketsApi().getBuckets({ limit: 100 }, req.oauth_client, req.oauth_token)
+  const returnArray = (await Promise.all(buckets.body.items.map(async (item) => {
+    const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
+    return await (objects.body.items.map((object) => {
+      return {
+        bucket: item.bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + '-', ''),
+        id: Buffer.from(object.objectId).toString('base64'),
+        text: object.objectKey,
+        type: 'object',
+        children: false
+      };
 
+    }))
+  }))).flat()
+  return  res.status(200).json(returnArray)
+})
 
 listModelsRouter.get("/:email", async (req, res, next) => {
   const regex = /[^-_.a-z0-9]/g
@@ -39,22 +55,6 @@ listModelsRouter.get("/:email", async (req, res, next) => {
 })
 
 
-listModelsRouter.get("/", async (req, res, next) => {
-  const buckets = await new BucketsApi().getBuckets({ limit: 100 }, req.oauth_client, req.oauth_token)
-  const returnArray = (await Promise.all(buckets.body.items.map(async (item) => {
-    const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-    return await (objects.body.items.map((object) => {
-      return {
-        bucket: item.bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + '-', ''),
-        id: Buffer.from(object.objectId).toString('base64'),
-        text: object.objectKey,
-        type: 'object',
-        children: false
-      };
 
-    }))
-  }))).flat()
-  return await res.status(200).json(returnArray)
-})
 
 export default listModelsRouter

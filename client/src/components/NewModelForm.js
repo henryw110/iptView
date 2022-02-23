@@ -1,30 +1,45 @@
 import React, { useState, useEffect } from "react"
-import axios from "axios"
+
 
 
 const NewModelForm = (props) => {
+  const [userEmail,setUserEmai] = useState()
+  
   const [selectedFile, setSelectedFile] = useState(null)
-  // On file select (from the pop up)
+  if(props.user && userEmail != props.user.email) {
+     setUserEmai (props.user.email)
+  }
+
   const onFileChange = event => {
-    // Update the state
     setSelectedFile(event.target.files[0] );
   };
-  // On file upload (click the upload button)
-  const onFileUpload = () => {
+  const onFileUpload = async () => {
+    console.log(userEmail)
     // Create an object of formData
     const formData = new FormData();
-    // Update the formData object
-    formData.append(
-      "myFile",
-      selectedFile,
-      selectedFile.name
-    );
-    // Details of the uploaded file
+    formData.append('fileToUpload', selectedFile);
+    formData.append('userEmail', userEmail);
     console.log(selectedFile);
-    // Request made to the backend api
-    // Send formData object
-    axios.post("api/v1/uploadfile", formData);
-  };
+
+    for(var pair of formData.keys()) {
+      console.log(pair);
+   }
+   for(var pair of formData.values()) {
+    console.log(pair);
+ }
+    try {
+      const response = await fetch(`/api/v1/uploadFile`, {
+        method: 'POST',
+        headers: new Headers({
+
+        }),
+        body: formData
+      })
+      console.log(response)
+    } catch (err) {
+      console.error(`Error in fetch: ${err.message}`)
+    }
+  }
 
   return (
     <div>

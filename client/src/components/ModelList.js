@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react"
+import { useParams } from "react-router"
 import ModelTile from "./ModelTile"
 
 
 
 const ModelList = (props) => {
+  const params = useParams()
   const [models, setModels] = useState([])
 
   const getModels = async () => {
-    const response = await fetch("/api/v1/listModels")
+    let response = []
+    if(params.id ==="#") {
+      response = await fetch("/api/v1/listModels/all")
+    }
+    else {
+      response = await fetch("/api/v1/listModels/"+params.id)
+    }
     const modelsList = await response.json()
     setModels(modelsList.map((model, index, array) => {
       if (index % 4 === 0) {
