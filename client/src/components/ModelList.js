@@ -19,24 +19,34 @@ const ModelList = (props) => {
                 name={array[index].text}
               />
             </div>
+            {
+            array[index+1]?
             <div className="small-3 cell">
             < ModelTile
                 urn={array[index+1].id}
                 name={array[index+1].text}
               />
-            </div>
+            </div>:
+            <div/>}
+            {
+            array[index+2]?
             <div className="small-3 cell">
             < ModelTile
                 urn={array[index+2].id}
                 name={array[index+2].text}
               />
-            </div>
+            </div>:
+            <div/>}
+            {
+            array[index+3]?
             <div className="small-3 cell">
             < ModelTile
                 urn={array[index+3].id}
                 name={array[index+3].text}
               />
-            </div>
+            </div>:
+            <div/>}
+            
           </div>
 
 
