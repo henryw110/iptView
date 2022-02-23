@@ -24,4 +24,4 @@ Desktop.ini
 **/coverage
 
 .env
-./server/env
+./server/.env
