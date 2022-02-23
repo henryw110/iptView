@@ -35,7 +35,6 @@ catch (err){
   //console.log(deletedBuckets.body)
   const returnArray =  (await Promise.all(buckets.body.items.map(async(item) => {
   const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-  console.log(objects.body.items)  
   return await(objects.body.items.map((object) => {
       return {
         bucket: item.bucketKey.replace(config.credentials.client_id.toLowerCase() + '-', ''),
@@ -47,8 +46,7 @@ catch (err){
 
     }))
   }))).flat()
-  console.log(returnArray)
-  return await res.status(200).json(returnArray)
+    return await res.status(200).json(returnArray)
 })
 
 export default listModelsRouter
