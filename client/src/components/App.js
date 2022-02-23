@@ -8,11 +8,11 @@ import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
-import NewBucketForm from "./NewBucketForm";
 
 import ForgeViewer from "../ForgeViewer";
 import ModelList from "./ModelList";
 import ShowModel from "./ShowModel";
+import NewModelForm from "./NewModelForm.js";
 const {
   launchViewer,
   onDocumentLoadFailure,
@@ -41,12 +41,12 @@ const App = (props) => {
       <Router>
       <TopBar user={currentUser} />
       <Switch>
-      <AuthenticatedRoute
-      path="/bucket/new"
-      component={NewBucketForm}
-      exact={true}
-      user={currentUser}
-      />
+        <AuthenticatedRoute
+        exact = {true}
+        path = "/model/new"
+        component = {NewModelForm}
+        user={currentUser}
+        />
       <Route exact path="/">
       <ModelList/>
       </Route>

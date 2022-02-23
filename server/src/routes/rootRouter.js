@@ -8,6 +8,9 @@ import modelDerivativeRouter from "./modelderivative.js";
 import listModelsRouter from "./api/v1/listModels.js";
 import getThumbnailRouter from "./api/v1/getThumbnailRouter.js";
 
+
+
+
 const rootRouter = new express.Router();
 rootRouter.use("/", clientRouter);
 

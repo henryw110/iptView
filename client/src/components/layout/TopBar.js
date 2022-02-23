@@ -27,7 +27,7 @@ const TopBar = ({ user }) => {
         <ul className="menu">
           <li className="menu-text">App</li>
           <li >
-            <Link to="/bucket/new"> New Bucket </Link>
+            <Link to="/model/new"> Upload Model </Link>
           </li>
           <li>
             <Link to="/">Home</Link>

@@ -19,25 +19,33 @@ listModelsRouter.use(async (req, res, next) => {
 });
 
 
+listModelsRouter.get("/:email", async (req, res, next) => {
+  const regex = /[^-_.a-z0-9]/g
+  const bucketKey = (config.credentials.client_id + "-" + (req.params.email.replace(regex, ""))).toLowerCase()
+  const objects = await new ObjectsApi().getObjects(bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
+  const returnArray = (objects.body.items.map((object) => {
+    return {
+      bucket: bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase()+"-",""),
+      id: Buffer.from(object.objectId).toString('base64'),
+      text: object.objectKey,
+      type: 'object',
+      children: false
+    };
+
+  }))
+  console.log(returnArray)
+  return res.status(200).json(returnArray)
+
+})
+
+
 listModelsRouter.get("/", async (req, res, next) => {
-/* try {
-  const testObjects =await new ObjectsApi().getObjects("haha", { limit: 100 }, req.oauth_client, req.oauth_token);
-}
-catch (err){
-  console.log(err)
-} */
   const buckets = await new BucketsApi().getBuckets({ limit: 100 }, req.oauth_client, req.oauth_token)
-  /* const deletedBuckets = await Promise.all(
-    buckets.body.items.map(async(item)=> {
-    return await new BucketsApi().deleteBucket(item.bucketKey,req.oauth_client,req.oauth_token)
-    }
-  )) */
-  //console.log(deletedBuckets.body)
-  const returnArray =  (await Promise.all(buckets.body.items.map(async(item) => {
-  const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-  return await(objects.body.items.map((object) => {
+  const returnArray = (await Promise.all(buckets.body.items.map(async (item) => {
+    const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
+    return await (objects.body.items.map((object) => {
       return {
-        bucket: item.bucketKey.replace(config.credentials.client_id.toLowerCase() + '-', ''),
+        bucket: item.bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + '-', ''),
         id: Buffer.from(object.objectId).toString('base64'),
         text: object.objectKey,
         type: 'object',
@@ -46,7 +54,7 @@ catch (err){
 
     }))
   }))).flat()
-    return await res.status(200).json(returnArray)
+  return await res.status(200).json(returnArray)
 })
 
 export default listModelsRouter
