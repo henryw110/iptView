@@ -15,14 +15,69 @@
 
 
 #forgeViewer {
-  padding:40px;
-  
-  width: 50%;
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 80%;
   height:50%;
-  position:absolute
 
 }
 .cell {
   text-align: center;
   margin-bottom: 30px;
+  border-radius:5px;
+  border: 3px solid;
+  background-color: white;
+}
+.grid-x {
+
+  margin: 50px;
+}
+.newModelForm {
+  margin:500px;
+  background-color: white;
+}
+.container {
+  height: 300px;
+  position: relative;
+  border: 3px solid;
+  border-radius: 5px;
+}
+body {
+  background-color: beige;
+}
+
+.center {
+  text-align: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.cell:hover {
+  text-align: center;
+  margin-bottom: 30px;
+  border-radius:5px;
+  border: 3px solid;
+  background-color: white;
+  border-color:blue;
+}
+.top-bar-button:hover {
+  border-radius: 5px;
+  background-color: white;
+}
+.bold {
+  font-weight: bold;
+}
+.button {
+  font-weight: bold;
+  background-color: blue;
+  border-color: black;
+  border-width: 3px;
+  border-radius: 5px;
 }

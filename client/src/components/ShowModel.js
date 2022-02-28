@@ -15,6 +15,8 @@ const ShowModel = (props) => {
     launchViewer(params.id)
   }, [])
 
-  return <div id="forgeViewer"></div>
+  return (
+  <div id="forgeViewer"/>
+  )
 }
 export default ShowModel

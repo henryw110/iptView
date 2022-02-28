@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 
 
 const NewModelForm = (props) => {
+  console.log("new model")
   const [userEmail,setUserEmai] = useState()
   
   const [selectedFile, setSelectedFile] = useState(null)
@@ -42,12 +43,12 @@ const NewModelForm = (props) => {
   }
 
   return (
-    <div>
+    <div className = "container newModelForm">
       {(props.user) ?
-        <div>
-          Hello!
-          <input type="file" onChange={onFileChange} />
-          <button onClick={onFileUpload}>
+        <div className = "center">
+          Upload a .ipt file!
+          <input  type="file" onChange={onFileChange} />
+          <button  className = "button" onClick={onFileUpload}>
             Upload!
           </button>
         </div> :

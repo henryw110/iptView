@@ -5,6 +5,7 @@ const ModelTile = (props) => {
   const [imgData,setImgData] = useState()
   const urn = props.urn
   const name = props.name
+  const bucket = props.bucket
   
   const imageUrl =
   "https://i.picsum.photos/id/566/200/300.jpg?hmac=gDpaVMLNupk7AufUDLFHttohsJ9-C17P7L-QKsVgUQU";

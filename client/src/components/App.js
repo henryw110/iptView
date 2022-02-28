@@ -37,7 +37,7 @@ const App = (props) => {
 
 
   return (
-    <div>
+    <div >
       <Router>
         <TopBar user={currentUser} />
         <Switch>
