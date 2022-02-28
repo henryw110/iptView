@@ -6,10 +6,10 @@ const TopBar = ({ user }) => {
 
   const unauthenticatedListItems = [
     <li key="sign-in">
-      <Link to="/user-sessions/new">Sign In</Link>
+      <Link to="/user-sessions/new"className="top-bar-button">Sign In</Link>
     </li>,
     <li key="sign-up">
-      <Link to="/users/new" className="button">
+      <Link to="/users/new" className="top-bar-button">
         Sign Up
       </Link>
     </li>,
