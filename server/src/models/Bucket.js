@@ -9,8 +9,8 @@ class Bucket extends Model {
       type:"object",
       required: ["bucketKey"],
       properties: {
-        bucketKey: {type:"string",minLength: 1, maxLength: 500},
-        userKey: {type:"string",minLength: 1, maxLength: 500}
+        bucketKey: {type:"string"},
+        userKey: {type:"string"}
       }
     }
   }

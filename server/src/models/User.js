@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const Bcrypt = require("bcrypt");
+const { BucketsApi } = require("forge-apis");
 const unique = require("objection-unique");
 const Model = require("./Model");
 
@@ -33,6 +34,34 @@ class User extends uniqueFunc(Model) {
         cryptedPassword: { type: "string" },
       },
     };
+  }
+  static get relationMappings() {
+    const cadModel = require("./cadModel")
+    const Bucket = require("./Bucket")
+
+    return {
+      bucket: {
+        relation:Model.HasOneRelation,
+        modelClass: Bucket,
+        join: {
+          from:"users.id",
+          to: "buckets.userKey"
+        } 
+      },
+      models: {
+        relation: Model.ManyToManyRelation,
+        modelClass: cadModel,
+        join: {
+          from:"users.id",
+          through: {
+            from:"buckets.userKey",
+            to:"buckets.bucketKey",
+          },
+          to: "models.bucketKey"
+        }
+      }
+
+    }
   }
 
   $formatJson(json) {

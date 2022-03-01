@@ -3,6 +3,8 @@ import passport from "passport";
 import config from "../../../config.js";
 import pkg from "forge-apis"
 const { BucketsApi, ObjectsApi, PostBucketsPayload } = pkg
+import { User, Bucket, cadModel } from "../../../models/index.js"
+
 
 const sessionRouter = new express.Router();
 
@@ -24,10 +26,12 @@ sessionRouter.post("/", (req, res, next) => {
 });
 
 sessionRouter.get("/current", async (req, res) => {
+  const email = req.user.email
+  const id = req.user.id
 
   if (req.user) {
     const regex = /[^-_.a-z0-9]/g
-    const bucketKey = (config.credentials.client_id + "-" + (req.user.email.replace(regex, ""))).toLowerCase()
+    const bucketKey = (config.credentials.client_id + "-" + (email.replace(regex, ""))).toLowerCase()
     console.log(bucketKey)
     try {
       const testObjects = await new ObjectsApi().getObjects(bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
@@ -39,6 +43,7 @@ sessionRouter.get("/current", async (req, res) => {
       payload.bucketKey = bucketKey
       payload.policyKey = "persistent"
       const newBucket = await new BucketsApi().createBucket(payload, {}, req.oauth_client, req.oauth_token);
+      await Bucket.query().insertAndFetch({ bucketKey: bucketKey, userKey: id })
       console.log(newBucket)
 
     }

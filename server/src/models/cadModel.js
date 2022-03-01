@@ -20,6 +20,14 @@ class cadModel extends Model {
     const Bucket = require("./Bucket.js")
 
     return {
+      bucket: {
+        relation: Model.HasOneRelation,
+        modelClass: Bucket,
+        join: {
+          from: "models.bucketKey",
+          to:"buckets.bucketKey"
+        }
+      },
       user: {
         relation:Model.ManyToManyRelation,
         modelClass: User,

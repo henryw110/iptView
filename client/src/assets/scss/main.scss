@@ -17,12 +17,14 @@ $dark-gray: #545454;
   -moz-tab-size: 4;
   tab-size: 4;
 }
-
+#forgeText {
+  text-align: center;
+  }
 
 #forgeViewer {
   margin: 0;
   position: absolute;
-  top: 30%;
+  top: 40%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -86,4 +88,7 @@ body {
   border-color: black;
   border-width: 3px;
   border-radius: 5px;
+}
+.title {
+  text-align: center;
 }

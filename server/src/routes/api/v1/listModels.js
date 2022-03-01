@@ -18,13 +18,19 @@ listModelsRouter.use(async (req, res, next) => {
 listModelsRouter.get("/all", async (req, res, next) => {
   const models = await cadModel.query()
   const returnArray = await Promise.all(models.map(async item => {
+    console.log(item)
     let itemUser
     try {
-      itemUser = await item.$relatedQuery("user")
+      const bucket = await item.$relatedQuery("bucket")
+      itemUser = (await bucket.$relatedQuery("user")).email
     } catch (err) {
+      console.log(err)
       itemUser = "demo"
     }
+    console.log(itemUser)
+    if(!itemUser){itemUser="demo"}
     return {
+      modelId:item.id,
       bucket: item.bucketKey,
       user: itemUser,
       id: Buffer.from(item.objectId).toString('base64'),
@@ -40,7 +46,9 @@ listModelsRouter.get("/:email", async (req, res, next) => {
     const demoBucket = await Bucket.query().findById("1")
     const demoModels = await demoBucket.$relatedQuery("models")
     const returnArray = await Promise.all(demoModels.map(async item => {
+      console.log(item)
       return {
+        modelId:item.id,
         bucket: item.bucketKey,
         user: "demo",
         id: Buffer.from(item.objectId).toString('base64'),
@@ -51,28 +59,25 @@ listModelsRouter.get("/:email", async (req, res, next) => {
   }
   else {
     try {
-      const queriedUser = await User.query().where("email", "=", email)
+      const queriedUser = (await User.query().where("email", "=", email))[0]
       console.log(queriedUser)
+      const userModels = await queriedUser.$relatedQuery("models")
+      const returnArray = await Promise.all(userModels.map(async item => {
+        return {
+          modelId:item.id,
+          bucket: item.bucketKey,
+          user: queriedUser.email,
+          id: Buffer.from(item.objectId).toString('base64'),
+          text: item.objectKey
+        }
+      }))
+      return res.status(200).json(returnArray)
 
     } catch (err) {
-      console.log(error)
-      res.status(404).json(error)
+      console.log(err)
+      res.status(404).json(err)
     }
   }
-  /*   const regex = /[^-_.a-z0-9]/g
-    const bucketKey = (config.credentials.client_id + "-" + (req.params.email.replace(regex, ""))).toLowerCase()
-    const objects = await new ObjectsApi().getObjects(bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-    const returnArray = (objects.body.items.map((object) => {
-      return {
-        bucket: bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + "-", ""),
-        id: Buffer.from(object.objectId).toString('base64'),
-        text: object.objectKey,
-        type: 'object',
-        children: false
-      };
-  
-    }))
-    return res.status(200).json(returnArray) */
 
 })
 
