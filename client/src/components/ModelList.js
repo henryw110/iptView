@@ -17,6 +17,7 @@ const ModelList = (props) => {
       response = await fetch("/api/v1/listModels/"+params.id)
     }
     const modelsList = await response.json()
+    console.log(modelsList)
     setModels(modelsList.map((model, index, array) => {
       if (index % 4 === 0) {
         return (

@@ -6,10 +6,6 @@ const ModelTile = (props) => {
   const urn = props.urn
   const name = props.name
   const bucket = props.bucket
-  
-  const imageUrl =
-  "https://i.picsum.photos/id/566/200/300.jpg?hmac=gDpaVMLNupk7AufUDLFHttohsJ9-C17P7L-QKsVgUQU";
-
   const getThumbnail = async() =>{
 
     const response =await fetch(`/api/v1/thumbnail/${urn}`)
@@ -24,8 +20,12 @@ const ModelTile = (props) => {
   }, [])
   return (
     <Link to={`/model/${urn}`}>
+      {imgData?
+      <div>
       <img src={`data:image/png;base64,${imgData}`} alt=""/>
       <p>{name}</p>
+      </div>:
+      <p>waiting for {name}</p>}
     </Link>
   )
 }

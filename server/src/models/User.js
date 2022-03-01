@@ -47,6 +47,3 @@ class User extends uniqueFunc(Model) {
 }
 
 module.exports = User;
-// $2b$10$/7MIi/3iLy/EwR1Tycoo/e1ILZ1vJGdHz9FsJa0oRLoTuusUW0xZm
-// $2b$10$2x3wEU2EXg3JlfXp.56AtOh3nhpuD6sSMSP2uw/MoqZV649EcaJDi
-// $2b$10$ITSb4yXvpWMrfvprDkdFK.0In5MoKNvdM5AzyVibqCP/SpCLk/44K

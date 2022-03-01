@@ -19,10 +19,21 @@ listModelsRouter.use(async (req, res, next) => {
 });
 listModelsRouter.get("/all", async (req, res, next) => {
   const buckets = await new BucketsApi().getBuckets({ limit: 100 }, req.oauth_client, req.oauth_token)
+  const detailsArray =await Promise.all(buckets.body.items.map(async(item) => {
+    const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
+    const returnDetails = await Promise.all(objects.body.items.map((object) => {
+      return new ObjectsApi().getObjectDetails(object.bucketKey,object.objectKey,{},req.oauth_client,req.oauth_token)
+    }))
+    //console.log(returnDetails)
+    return returnDetails
+  }).flat())
+  console.log(detailsArray.flat())
+
   const returnArray = (await Promise.all(buckets.body.items.map(async (item) => {
     const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-    return await (objects.body.items.map((object) => {
-      return {
+    return (objects.body.items.map( (object) => {
+      //console.log(object)
+       return {
         bucket: item.bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + '-', ''),
         id: Buffer.from(object.objectId).toString('base64'),
         text: object.objectKey,
@@ -32,7 +43,7 @@ listModelsRouter.get("/all", async (req, res, next) => {
 
     }))
   }))).flat()
-  return  res.status(200).json(returnArray)
+  return res.status(200).json(returnArray)
 })
 
 listModelsRouter.get("/:email", async (req, res, next) => {
@@ -41,7 +52,7 @@ listModelsRouter.get("/:email", async (req, res, next) => {
   const objects = await new ObjectsApi().getObjects(bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
   const returnArray = (objects.body.items.map((object) => {
     return {
-      bucket: bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase()+"-",""),
+      bucket: bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + "-", ""),
       id: Buffer.from(object.objectId).toString('base64'),
       text: object.objectKey,
       type: 'object',
@@ -49,7 +60,6 @@ listModelsRouter.get("/:email", async (req, res, next) => {
     };
 
   }))
-  console.log(returnArray)
   return res.status(200).json(returnArray)
 
 })

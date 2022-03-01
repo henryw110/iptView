@@ -18,8 +18,14 @@ getThumbnailRouter.use(async (req, res, next) => {
 
 getThumbnailRouter.get("/:id",async(req,res) => {
   const urn = req.params.id
-  const response =await new DerivativesApi().getThumbnail(urn,{width:200,height:200},req.oauth_client, req.oauth_token)
+  try {
+    const response =await new DerivativesApi().getThumbnail(urn,{width:200,height:200},req.oauth_client, req.oauth_token)
   return res.status(200).json(response.body)
+  }
+  catch(err){
+    console.log(err)
+    return res.status(304).json(err)
+  }
   //fs.writeFileSync(response.headers['x-ads-name'],response.body)
 
 })

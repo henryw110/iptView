@@ -2,6 +2,11 @@
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
 // place global css here
+$topbar-background	:blue ;
+$blue: #406BB0;
+$dark-gray: #545454;
+
+
 *,
 *::before,
 *::after {
@@ -70,14 +75,14 @@ body {
 }
 .top-bar-button:hover {
   border-radius: 5px;
-  background-color: white;
+  background-color:lightgrey;
 }
 .bold {
   font-weight: bold;
 }
 .button {
   font-weight: bold;
-  background-color: blue;
+  background-color: $blue;
   border-color: black;
   border-width: 3px;
   border-radius: 5px;
