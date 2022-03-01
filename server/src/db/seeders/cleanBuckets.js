@@ -13,16 +13,12 @@ class bucketManager {
     const oauth_token = token;
     const oauth_client = getClient();
     const buckets = await new BucketsApi().getBuckets({ limit: 100 }, oauth_client, oauth_token)
-    //console.log(buckets.body)
     const filteredBuckets = buckets.body.items.filter(item => !(item.bucketKey.endsWith("aoagkn1r9smdh7lawgbytt5gaseamtpc-demo")))
-    const deletedBuckets = await Promise.all(
+    await Promise.all(
       filteredBuckets.map(async (item) => {
         return await new BucketsApi().deleteBucket(item.bucketKey, oauth_client, oauth_token)
       }
       ))
-    const newBuckets = await new BucketsApi().getBuckets({ limit: 100 }, oauth_client, oauth_token)
-   // console.log(newBuckets.body.items)
-
   }
 }
 

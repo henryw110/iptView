@@ -1,12 +1,10 @@
-import fs from "fs"
 import express from 'express'
-import multer from "multer"
 import pkg from "forge-apis"
 const { BucketsApi, ObjectsApi, PostBucketsPayload } = pkg
 import oauth from "../../common/oauth.js"
 const { getClient, getInternalToken } = oauth;
 import config from "../../../config.js"
-
+import { User, Bucket, cadModel } from "../../../models/index.js"
 const listModelsRouter = new express.Router()
 
 
@@ -18,49 +16,63 @@ listModelsRouter.use(async (req, res, next) => {
   next();
 });
 listModelsRouter.get("/all", async (req, res, next) => {
-  const buckets = await new BucketsApi().getBuckets({ limit: 100 }, req.oauth_client, req.oauth_token)
-  const detailsArray =await Promise.all(buckets.body.items.map(async(item) => {
-    const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-    const returnDetails = await Promise.all(objects.body.items.map((object) => {
-      return new ObjectsApi().getObjectDetails(object.bucketKey,object.objectKey,{},req.oauth_client,req.oauth_token)
-    }))
-    //console.log(returnDetails)
-    return returnDetails
-  }).flat())
-  console.log(detailsArray.flat())
+  const models = await cadModel.query()
+  const returnArray = await Promise.all(models.map(async item => {
+    let itemUser
+    try {
+      itemUser = await item.$relatedQuery("user")
+    } catch (err) {
+      itemUser = "demo"
+    }
+    return {
+      bucket: item.bucketKey,
+      user: itemUser,
+      id: Buffer.from(item.objectId).toString('base64'),
+      text: item.objectKey
+    }
+  }))
+  return res.status(200).json(returnArray)
+})
 
-  const returnArray = (await Promise.all(buckets.body.items.map(async (item) => {
-    const objects = await new ObjectsApi().getObjects(item.bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-    return (objects.body.items.map( (object) => {
-      //console.log(object)
-       return {
-        bucket: item.bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + '-', ''),
+listModelsRouter.get("/:email", async (req, res, next) => {
+  const email = req.params.email
+  if (email == "demo") {
+    const demoBucket = await Bucket.query().findById("1")
+    const demoModels = await demoBucket.$relatedQuery("models")
+    const returnArray = await Promise.all(demoModels.map(async item => {
+      return {
+        bucket: item.bucketKey,
+        user: "demo",
+        id: Buffer.from(item.objectId).toString('base64'),
+        text: item.objectKey
+      }
+    }))
+    return res.status(200).json(returnArray)
+  }
+  else {
+    try {
+      const queriedUser = await User.query().where("email", "=", email)
+      console.log(queriedUser)
+
+    } catch (err) {
+      console.log(error)
+      res.status(404).json(error)
+    }
+  }
+  /*   const regex = /[^-_.a-z0-9]/g
+    const bucketKey = (config.credentials.client_id + "-" + (req.params.email.replace(regex, ""))).toLowerCase()
+    const objects = await new ObjectsApi().getObjects(bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
+    const returnArray = (objects.body.items.map((object) => {
+      return {
+        bucket: bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + "-", ""),
         id: Buffer.from(object.objectId).toString('base64'),
         text: object.objectKey,
         type: 'object',
         children: false
       };
-
+  
     }))
-  }))).flat()
-  return res.status(200).json(returnArray)
-})
-
-listModelsRouter.get("/:email", async (req, res, next) => {
-  const regex = /[^-_.a-z0-9]/g
-  const bucketKey = (config.credentials.client_id + "-" + (req.params.email.replace(regex, ""))).toLowerCase()
-  const objects = await new ObjectsApi().getObjects(bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-  const returnArray = (objects.body.items.map((object) => {
-    return {
-      bucket: bucketKey.toLowerCase().replace(config.credentials.client_id.toLowerCase() + "-", ""),
-      id: Buffer.from(object.objectId).toString('base64'),
-      text: object.objectKey,
-      type: 'object',
-      children: false
-    };
-
-  }))
-  return res.status(200).json(returnArray)
+    return res.status(200).json(returnArray) */
 
 })
 

@@ -16,6 +16,7 @@ class Bucket extends Model {
   }
   static get relationMappings() {
     const User = require("./User.js")
+    const cadModel = require("./cadModel.js")
 
     return {
       user: {
@@ -25,7 +26,14 @@ class Bucket extends Model {
           from: "buckets.userKey",
           to: "users.id"
         }
-
+      },
+      models: {
+        relation: Model.HasManyRelation,
+        modelClass:cadModel,
+        join: {
+          from:"buckets.bucketKey",
+          to: "models.bucketKey"
+        }
       }
     }
   }

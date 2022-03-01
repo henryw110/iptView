@@ -13,10 +13,9 @@ class Seeder {
     await bucketManager.cleanBuckets()
     console.log("seeding user")
     await userSeeder.seed()
-    
     await seedBuckets.seed()
     console.log("seeding models")
-    //await modelSeeder.seed()
+    await modelSeeder.seed()
     await connection.destroy()
   }
 }
