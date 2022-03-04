@@ -9,4 +9,6 @@ The app is available to view [here](https://ipt-viewer.herokuapp.com), or can be
 
 2. If you're not already there, go to [https://forge.autodesk.com/myapps/] . Click "Create App". Fill in the app name and description with whatever you want. Make the callback url ```http://localhost:3000/api/forge/callback/oauth```.
 
-3. ```git clone https://github.com/henryw110/iptView.git```
+3. ```git clone https://github.com/henryw110/iptView.git
+      cd server
+      touch .env```

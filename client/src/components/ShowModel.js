@@ -33,7 +33,7 @@ const ShowModel = (props) => {
           <div id="forgeViewer" />
           <div id="forgeText">
             <p>uploaded on {response.createdAt}</p>
-            <a href ={`http://localhost:8080/user/`+response.user}>uploaded by {response.user} </a>
+            <a href ={`/user/`+response.user}>uploaded by {response.user} </a>
           </div> 
           </div>:
           <div />}
