@@ -3,14 +3,13 @@ import { Link } from "react-router-dom"
 
 const ModelTile = (props) => {
   const [imgData,setImgData] = useState()
-  console.log(props.data)
   const urn = props.data.id
   const user = props.data.user
   const name = props.data.text
   const bucket = props.data.bucket
   const modelId = props.data.modelId
   const getThumbnail = async() =>{
-    console.log(props.data)
+    //console.log(props.data)
     
 
     const response =await fetch(`/api/v1/thumbnail/${urn}`)

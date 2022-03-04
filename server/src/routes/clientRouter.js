@@ -11,7 +11,9 @@ const clientRoutes = ["/",
   "/user-sessions/new",
   "/users/new",
   "/model/:id",
-  "/user/:id"];
+  "/user/:id",
+  "/landing",
+  "/userIndex"];
 
 router.use(async (req, res, next) => {
   try {

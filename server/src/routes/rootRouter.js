@@ -9,6 +9,7 @@ import listModelsRouter from "./api/v1/listModels.js";
 import getThumbnailRouter from "./api/v1/getThumbnailRouter.js";
 import uploadFileRouter from "./api/v1/uploadFile.js";
 import modelData from "./api/v1/modelData.js";
+import listUsersRouter from "./api/v1/listUsers.js";
 
 
 
@@ -24,4 +25,5 @@ rootRouter.use('/api/forge/modelderivative', modelDerivativeRouter);
 rootRouter.use("/api/v1/user-sessions", userSessionsRouter);
 rootRouter.use("/api/v1/users", usersRouter); //place your server-side routes here
 rootRouter.use("/api/v1/modelData",modelData)
+rootRouter.use("/api/v1/listUsers",listUsersRouter)
 export default rootRouter;

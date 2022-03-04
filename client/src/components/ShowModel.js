@@ -26,13 +26,16 @@ const ShowModel = (props) => {
 
   return (
     <div>
-      <div id="forgeViewer" />
+      
       {
         response.user && response.createdAt ?
+        <div>
+          <div id="forgeViewer" />
           <div id="forgeText">
             <p>uploaded on {response.createdAt}</p>
             <a href ={`http://localhost:8080/user/`+response.user}>uploaded by {response.user} </a>
-          </div> :
+          </div> 
+          </div>:
           <div />}
     </div>
   )

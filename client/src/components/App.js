@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route,Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
@@ -13,6 +13,8 @@ import ForgeViewer from "../ForgeViewer";
 import ModelList from "./ModelList";
 import ShowModel from "./ShowModel";
 import NewModelForm from "./NewModelForm.js";
+import landingPage from "./landingPage";
+import UserList from "./UserList";
 const {
   launchViewer,
   onDocumentLoadFailure,
@@ -48,8 +50,10 @@ const App = (props) => {
             user={currentUser}
           />
           <Route exact path="/">
-            <Redirect to="/user/all" />
+            <Redirect to="/landing" />
           </Route>
+          <Route exact path="/userIndex" component={UserList} />
+          <Route exact path="/landing" component={landingPage} />
           <Route exact path="/user/:id" component={ModelList} />
           <Route exact path="/users/new" component={RegistrationForm} />
           <Route exact path="/user-sessions/new" component={SignInForm} />
@@ -59,6 +63,7 @@ const App = (props) => {
         </Switch>
       </Router>
     </div>
+
   );
 };
 

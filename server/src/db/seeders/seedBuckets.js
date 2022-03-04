@@ -15,7 +15,9 @@ class seedBuckets {
     const oauth_token = token;
     const oauth_client = getClient();
 
-   await Bucket.query().insertAndFetch({ bucketKey: "aoagkn1r9smdh7lawgbytt5gaseamtpc-demo" })
+    
+
+   await Bucket.query().insertAndFetch({ bucketKey: (process.env.FORGE_CLIENT_ID.toLowerCase()+"-demo") })
 
     const usersList = await User.query().select("id", "email")
 

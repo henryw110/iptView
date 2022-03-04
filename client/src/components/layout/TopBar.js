@@ -30,6 +30,12 @@ const TopBar = ({ user }) => {
             <Link className= "top-bar-button" to="/model/new"> Upload Model </Link>
           </li>
           <li>
+            <Link className = "top-bar-button" to="/user/all">View Models</Link>
+          </li>
+          <li>
+            <Link className = "top-bar-button" to="/userIndex">User Index</Link>
+          </li>
+          <li>
             <Link className = "top-bar-button" to="/">Home</Link>
           </li>
         </ul>

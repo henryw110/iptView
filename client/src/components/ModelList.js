@@ -17,7 +17,7 @@ const ModelList = (props) => {
       response = await fetch("/api/v1/listModels/" + params.id)
     }
     const modelsList = await response.json()
-    console.log(modelsList)
+    //console.log(modelsList)
     setModels(modelsList.map((model, index, array) => {
       if (index % 4 === 0) {
         return (
@@ -53,8 +53,6 @@ const ModelList = (props) => {
                 <div />}
 
           </div>
-
-
         )
       }
 
@@ -63,14 +61,12 @@ const ModelList = (props) => {
   useEffect(() => {
     getModels()
   }, [])
-
-
+  console.log(models)
   return (
     <div>
-
       {
         params.id != "all" ?
-          <h1 className = "title">{params.id}'s models</h1> :
+          <h1 className="title">{params.id}'s models</h1> :
           <div />
       }
       <ol>

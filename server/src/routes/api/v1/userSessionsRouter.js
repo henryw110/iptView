@@ -32,10 +32,8 @@ sessionRouter.get("/current", async (req, res) => {
   if (req.user) {
     const regex = /[^-_.a-z0-9]/g
     const bucketKey = (config.credentials.client_id + "-" + (email.replace(regex, ""))).toLowerCase()
-    console.log(bucketKey)
     try {
       const testObjects = await new ObjectsApi().getObjects(bucketKey, { limit: 100 }, req.oauth_client, req.oauth_token);
-      console.log(testObjects)
     }
     catch (err) {
       console.log(err)
