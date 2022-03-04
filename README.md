@@ -9,6 +9,27 @@ The app is available to view [here](https://ipt-viewer.herokuapp.com), or can be
 
 2. If you're not already there, go to [https://forge.autodesk.com/myapps/] . Click "Create App". Fill in the app name and description with whatever you want. Make the callback url ```http://localhost:3000/api/forge/callback/oauth```.
 
-3. ```git clone https://github.com/henryw110/iptView.git
+3. `git clone https://github.com/henryw110/iptView.git
       cd server
-      touch .env```
+      touch .env`
+
+4. Fill out the .env file in the following format. You can find your Autodesk Forge app at [https://forge.autodesk.com/myapps/]:
+
+`SESSION_SECRET="[Your choice]"
+FORGE_CLIENT_ID = "[From Autodesk Forge]"
+FORGE_CLIENT_SECRET = "[From Autodesk Forge]"
+FORGE_CALLBACK_URL = "http://localhost:3000/api/forge/callback/oauth"
+SEEDED_EMAIL = "[Your choice]"
+SEEDED_PASSOWRD = "[Your choice]" `
+
+5.  `
+cd ..
+yarn install
+createdb iptView_development
+cd server
+yarn run migrate: rollback
+yarn run migrate: latest
+yarn run db:seed
+yarn run dev`
+
+```
