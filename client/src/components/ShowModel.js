@@ -20,6 +20,7 @@ const ShowModel = (props) => {
 
   useEffect(() => {
     getModelData()
+    getModelData()
 
 
   }, [])
