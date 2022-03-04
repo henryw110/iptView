@@ -6,8 +6,8 @@ class userSeeder {
   static async seed() {
     const modelData = [
       {
-        email: process.env.ADMIN_EMAIL,
-        password: process.env.ADMIN_PASSWORD
+        email: process.env.SEEDED_EMAIL,
+        password: process.env.SEEDED_PASSWORD
       }
     ]
     for (const singleUserData of modelData) {
