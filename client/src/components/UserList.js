@@ -11,7 +11,7 @@ const UserList = props => {
     const usersArray = (response.map((item, index) => {
       return (
           <div className=" cell">
-            <a key={index} href={`http://localhost:8080/user/` + item}> {item} </a>
+            <a key={index} href={`/user/` + item}> {item} </a>
           </div>
         
       )
