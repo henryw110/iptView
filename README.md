@@ -39,3 +39,4 @@ yarn run db:seed
 yarn run dev`
 
 ```
+6. [localhost:8080]
