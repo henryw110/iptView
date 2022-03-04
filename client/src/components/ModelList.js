@@ -7,15 +7,20 @@ import ModelTile from "./ModelTile"
 const ModelList = (props) => {
   const params = useParams()
   const [models, setModels] = useState([])
+  console.log(params)
 
   const getModels = async () => {
+
     let response = []
-    if (params.id === "all") {
-      response = await fetch("/api/v1/listModels/all")
-    }
-    else {
+    if (params.id) {
+      console.log("fetching user")
       response = await fetch("/api/v1/listModels/" + params.id)
     }
+    else {
+      console.log("fetching all")
+      response = await fetch("/api/v1/listModels/all")
+    }
+
     const modelsList = await response.json()
     //console.log(modelsList)
     setModels(modelsList.map((model, index, array) => {
@@ -65,7 +70,7 @@ const ModelList = (props) => {
   return (
     <div>
       {
-        params.id != "all" ?
+        params.id ?
           <h1 className="title">{params.id}'s models</h1> :
           <div />
       }

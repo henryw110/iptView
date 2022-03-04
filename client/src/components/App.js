@@ -54,6 +54,7 @@ const App = (props) => {
           </Route>
           <Route exact path="/userIndex" component={UserList} />
           <Route exact path="/landing" component={landingPage} />
+          <Route exact path="/user/all" component={ModelList} />
           <Route exact path="/user/:id" component={ModelList} />
           <Route exact path="/users/new" component={RegistrationForm} />
           <Route exact path="/user-sessions/new" component={SignInForm} />
