@@ -7,6 +7,6 @@ The app is available to view [here](https://ipt-viewer.herokuapp.com), or can be
 
 1. Go to [https://forge.autodesk.com/] ,and click on "Sign up to try Forge" . Sign up and verify your email to get access to their free trial.
 
-2. If you're not already there, go to [https://forge.autodesk.com/myapps/] . Click "Create App". Fill in the app name and description with whatever you want. Make the callback url ```http://localhost:3000/api/forge/callback/oauth```
+2. If you're not already there, go to [https://forge.autodesk.com/myapps/] . Click "Create App". Fill in the app name and description with whatever you want. Make the callback url ```http://localhost:3000/api/forge/callback/oauth```.
 
-3. 
+3. ```git clone https://github.com/henryw110/iptView.git```
