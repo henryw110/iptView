@@ -26,9 +26,12 @@ sessionRouter.post("/", (req, res, next) => {
 });
 
 sessionRouter.get("/current", async (req, res) => {
-  const email = req.user.email
-  const id = req.user.id
-
+  let id, email
+  if (req.user) {
+    email = req.user.email
+    id = req.user.id
+  }
+  console
   if (req.user) {
     const regex = /[^-_.a-z0-9]/g
     const bucketKey = (config.credentials.client_id + "-" + (email.replace(regex, ""))).toLowerCase()
@@ -43,8 +46,10 @@ sessionRouter.get("/current", async (req, res) => {
       const newBucket = await new BucketsApi().createBucket(payload, {}, req.oauth_client, req.oauth_token);
       await Bucket.query().insertAndFetch({ bucketKey: bucketKey, userKey: id })
       console.log(newBucket)
+      returnObj
 
     }
+    console.log(req.user)
     res.status(200).json(req.user);
   } else {
     res.status(401).json(undefined);

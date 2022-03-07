@@ -11,13 +11,10 @@ const listUsersRouter = new express.Router()
 listUsersRouter.get("/",async (req,res) => {
   let response =(await User.query().select("email"))
   let bucket  = (await Bucket.query())[0].bucketKey
-  console.log(bucket)
   if(bucket.endsWith("-demo")) {
     response.push(({email:'demo'}))
   }
-  console.log(response)
   const returnArray = response.map(item => {
-    console.log(item.email)
     return(item.email)
   })
 

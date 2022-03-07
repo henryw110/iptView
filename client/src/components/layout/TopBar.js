@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
 
-const TopBar = ({ user }) => {
-
+const TopBar = (props) => {
+  console.log(props)
   const unauthenticatedListItems = [
     <li key="sign-in">
       <Link to="/user-sessions/new"className="top-bar-button">Sign In</Link>
@@ -41,7 +41,7 @@ const TopBar = ({ user }) => {
         </ul>
       </div>
       <div className="top-bar-right">
-        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
+        <ul className="menu">{props.user ? authenticatedListItems : unauthenticatedListItems}</ul>
       </div>
     </div>
   );

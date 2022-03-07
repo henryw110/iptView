@@ -33,7 +33,9 @@ $dark-gray: #545454;
 
 }
 .cell {
+  position: relative;
   text-align: center;
+  margin: 0% 5% 5% -3%;
   margin-bottom: 30px;
   border-radius:5px;
   border: 3px solid;
@@ -44,21 +46,23 @@ $dark-gray: #545454;
   margin: 50px;
 }
 .newModelForm {
-  margin:500px;
+  
   background-color: white;
 }
 .container {
+  margin:10% 30%;
   height: 300px;
   position: relative;
-  border: 3px solid;
-  margin: 10px 900px ;
-  border-radius: 5px;
 }
 body {
   background-color: beige;
 }
-
+.centerText {
+  text-align: center;
+}
 .center {
+  border: 3px solid;
+  border-radius: 5px;  
   text-align: center;
   margin: 0;
   position: absolute;

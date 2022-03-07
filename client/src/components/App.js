@@ -21,48 +21,63 @@ const {
   onDocumentLoadSuccess,
   getForgeToken
 } = ForgeViewer
-
+let finishedFetching = false
 const App = (props) => {
+
   const [currentUser, setCurrentUser] = useState(undefined);
   const fetchCurrentUser = async () => {
+    console.log("fetcihg")
     try {
       const user = await getCurrentUser()
+      console.log(user)
       setCurrentUser(user)
     } catch (err) {
+      console.log("err")
       setCurrentUser(null)
     }
   }
-  useEffect(() => {
+  //fetchCurrentUser()
+  useEffect( () => {
+    console.log("effect")
     //launchViewer(URNs[1])
-    fetchCurrentUser()
-  }, [])
+    finishedFetching = true
+     fetchCurrentUser()
 
+  }, [])
+  console.log(finishedFetching)
 
   return (
+
     <div >
-      <Router>
-        <TopBar user={currentUser} />
-        <Switch>
-          <AuthenticatedRoute
-            exact={true}
-            path="/model/new"
-            component={NewModelForm}
-            user={currentUser}
-          />
-          <Route exact path="/">
-            <Redirect to="/landing" />
-          </Route>
-          <Route exact path="/userIndex" component={UserList} />
-          <Route exact path="/landing" component={landingPage} />
-          <Route exact path="/user/all" component={ModelList} />
-          <Route exact path="/user/:id" component={ModelList} />
-          <Route exact path="/users/new" component={RegistrationForm} />
-          <Route exact path="/user-sessions/new" component={SignInForm} />
-          <Route exact path="/model/:id">
-            <ShowModel user={currentUser} />
-          </Route>
-        </Switch>
-      </Router>
+      {
+        finishedFetching ?
+          <div>
+            <Router>
+              <TopBar user={currentUser}  />
+              <Switch>
+                <AuthenticatedRoute
+                  exact={true}
+                  path="/model/new"
+                  component={NewModelForm}
+                  user={currentUser}
+                />
+                <Route exact path="/">
+                  <Redirect to="/landing" />
+                </Route>
+                <Route exact path="/userIndex" component={UserList} />
+                <Route exact path="/landing" component={landingPage} />
+                <Route exact path="/user/all" component={ModelList} />
+                <Route exact path="/user/:id" component={ModelList} />
+                <Route exact path="/users/new" component={RegistrationForm} />
+                <Route exact path="/user-sessions/new" component={SignInForm} />
+                <Route exact path="/model/:id">
+                  <ShowModel user={currentUser} />
+                </Route>
+              </Switch>
+            </Router>
+          </div>:
+          <div/>}
+
     </div>
 
   );
