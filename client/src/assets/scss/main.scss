@@ -17,22 +17,17 @@ $dark-gray: #545454;
   -moz-tab-size: 4;
   tab-size: 4;
 }
-#forgeText {
-  text-align: center;
-  }
+
+
 
 #forgeViewer {
-  margin: 0;
   position: absolute;
-  top: 40%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  height: 50%;
   width: 80%;
-  height:50%;
-
+  margin: 10%10%10%10%;
 }
 .cell {
+  
   position: relative;
   text-align: center;
   margin: 0% 5% 5% -3%;
@@ -49,6 +44,13 @@ $dark-gray: #545454;
   
   background-color: white;
 }
+.forgeContainter {
+  text-align: center;
+  position: relative;
+    
+  transform: translate(-50%, -50%);
+
+}
 .container {
   margin:10% 30%;
   height: 300px;
@@ -61,6 +63,7 @@ body {
   text-align: center;
 }
 .center {
+
   border: 3px solid;
   border-radius: 5px;  
   text-align: center;
@@ -68,18 +71,14 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
+  
   transform: translate(-50%, -50%);
 }
 .cell:hover {
-  text-align: center;
-  margin-bottom: 30px;
-  border-radius:5px;
-  border: 3px solid;
-  background-color: white;
   border-color:blue;
 }
 .top-bar-button:hover {
+  color: #1779ba;
   border-radius: 5px;
   background-color:lightgrey;
 }
@@ -93,6 +92,15 @@ body {
   border-width: 3px;
   border-radius: 5px;
 }
+.button:hover {
+  background-color:#1779ba ;
+}
 .title {
   text-align: center;
+}
+.blue {
+  color: #1779ba
+}
+.blue:hover {
+  color: #1779ba;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 
 
@@ -15,19 +16,12 @@ const NewModelForm = (props) => {
     setSelectedFile(event.target.files[0]);
   };
   const onFileUpload = async () => {
+
     console.log(userEmail)
     // Create an object of formData
     const formData = new FormData();
     formData.append('fileToUpload', selectedFile);
     formData.append('userEmail', userEmail);
-    console.log(selectedFile);
-
-    for (var pair of formData.keys()) {
-      console.log(pair);
-    }
-    for (var pair of formData.values()) {
-      console.log(pair);
-    }
     try {
       const response = await fetch(`/api/v1/uploadFile`, {
         method: 'POST',
@@ -36,25 +30,29 @@ const NewModelForm = (props) => {
         }),
         body: formData
       })
-      console.log(response)
+      window.location.href = "/user/all"
     } catch (err) {
       console.error(`Error in fetch: ${err.message}`)
     }
+
   }
 
   return (
+    <div>
+      <h1 className="title"> Upload Model </h1>
     <div className="container">
       <div className="center newModelForm">
         {(props.user) ?
           <div>
             Upload a .ipt file!
-            <input type="file" onChange={onFileChange}/>
+            <input type="file" onChange={onFileChange} />
             <button className="button centerText" onClick={onFileUpload}>
               Upload!
             </button>
           </div> :
           <div></div>}
       </div>
+    </div>
     </div>
   )
 }

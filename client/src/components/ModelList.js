@@ -71,8 +71,8 @@ const ModelList = (props) => {
     <div>
       {
         params.id ?
-          <h1 className="title">{params.id}'s models</h1> :
-          <div />
+          <h1 className="title">Viewing {params.id}'s models</h1> :
+          <h1 className="title">Viewing all models</h1> 
       }
       <ol>
         {models}

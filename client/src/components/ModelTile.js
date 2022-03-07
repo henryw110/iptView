@@ -13,6 +13,7 @@ const ModelTile = (props) => {
     
 
     const response =await fetch(`/api/v1/thumbnail/${urn}`)
+    
     const buffer=(await response.json())
     const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer.data)));
     setImgData(base64String)
@@ -23,7 +24,7 @@ const ModelTile = (props) => {
     getThumbnail()
   }, [])
   return (
-    <Link to={`/model/${modelId}`}>
+    <Link to={`/model/${modelId}`} className="blue" >
       {imgData?
       <div>
       <img src={`data:image/png;base64,${imgData}`} alt=""/>

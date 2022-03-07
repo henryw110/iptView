@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom";
+
 import { useParams } from "react-router"
 import ModelTile from "./ModelTile"
 
@@ -10,10 +12,12 @@ const UserList = props => {
     console.log(response)
     const usersArray = (response.map((item, index) => {
       return (
-          <div className=" cell">
-            <a key={index} href={`/user/` + item}> {item} </a>
-          </div>
-        
+        <div className="cell" key={index}>
+          <Link to={`/user/${item}`}>
+            <div className="blue" >  {item} </div>
+          </Link>
+        </div>
+
       )
     }))
     setUsers(usersArray)
@@ -24,6 +28,8 @@ const UserList = props => {
   }, [])
   console.log(users)
   return (
+    <div>
+      <h1 className="title">User Index</h1>
     <div className="container">
       <div className="center">
         <h4>Click on a user's name to view their uploaded models!</h4>
@@ -31,6 +37,7 @@ const UserList = props => {
           {users}
         </ol>
       </div>
+    </div>
     </div>
   )
 

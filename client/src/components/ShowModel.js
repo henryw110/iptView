@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useParams, Link } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 import ForgeViewer from "../ForgeViewer";
 const {
@@ -16,28 +16,31 @@ const ShowModel = (props) => {
   }
   const params = useParams()
   launchViewer(response.id)
-
+  console.log(response)
 
   useEffect(() => {
     getModelData()
     getModelData()
-
+    getModelData()
 
   }, [])
 
   return (
     <div>
-      
       {
         response.user && response.createdAt ?
-        <div>
-          <div id="forgeViewer" />
-          <div id="forgeText">
-            <p>uploaded on {response.createdAt}</p>
-            <a href ={`/user/`+response.user}>uploaded by {response.user} </a>
-          </div> 
-          </div>:
+          <div className="forgeContainer">
+            <div  id="forgeViewer"/>
+              <h1 className="title"> viewing {response.text}</h1>
+              <div className="title">
+                <p>uploaded on {response.createdAt}</p>
+                <Link to={`/user/` + response.user}>
+                  <div className="blue">uploaded by {response.user} </div>
+                </Link>
+              </div>
+            </div>:
           <div />}
+
     </div>
   )
 }
