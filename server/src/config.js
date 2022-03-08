@@ -11,7 +11,7 @@ export default {
 },
 scopes: {
     // Required scopes for the server-side application
-    internal: ['bucket:create', 'bucket:read', 'data:read', 'data:create', 'data:write',"bucket:delete"],
+    internal: ['bucket:create', 'bucket:read', 'data:read', 'data:create', 'data:write',"bucket:delete","viewables:read"],
     // Required scope for the client-side viewer
     public: ['viewables:read']
 },

@@ -24,6 +24,7 @@ let oAuthRouter = express.Router();
 
 // GET /api/forge/oauth/token - generates a public access token (required by the Forge viewer).
 oAuthRouter.get('/token', async (req, res, next) => {
+    console.log("getting token")
 
     try {
         const token = await getPublicToken();
@@ -32,6 +33,7 @@ oAuthRouter.get('/token', async (req, res, next) => {
             expires_in: token.expires_in    
         });
     } catch(err) {
+        console.log(err)
         next(err);
     }
 });

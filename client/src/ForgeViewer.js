@@ -3,6 +3,7 @@ var viewer;
 
 
 function launchViewer(urn) {
+  
   var options = {
     env: 'AutodeskProduction',
     getAccessToken: getForgeToken
@@ -28,9 +29,9 @@ function onDocumentLoadFailure(viewerErrorCode) {
 }
 
 function getForgeToken(callback) {
-  fetch('/api/forge/oauth/token').then(res => {
-    console.log
+  fetch('/api/forge/oauth/token').then( res => {
     res.json().then(data => {
+      console.log(data)
       callback(data.access_token, data.expires_in);
     });
   });

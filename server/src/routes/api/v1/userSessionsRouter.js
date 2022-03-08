@@ -49,7 +49,7 @@ sessionRouter.get("/current", async (req, res) => {
       returnObj
 
     }
-    console.log(req.user)
+    //console.log(req.user)
     res.status(200).json(req.user);
   } else {
     res.status(401).json(undefined);

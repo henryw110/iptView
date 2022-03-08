@@ -1,6 +1,6 @@
 import express from 'express'
 import pkg from "forge-apis"
-const { BucketsApi, ObjectsApi, PostBucketsPayload } = pkg
+const { BucketsApi, ObjectsApi, PostBucketsPayload, DerivativesApi } = pkg
 import oauth from "../../common/oauth.js"
 const { getClient, getInternalToken } = oauth;
 import config from "../../../config.js"
@@ -23,20 +23,22 @@ modelData.get("/:modelData", async (req, res) => {
     user = "demo"
   } else {
     const userEntry = await bucket.$relatedQuery("user")
-    console.log(userEntry)
+    /* console.log(userEntry) */
     user = userEntry.email
   }
-  console.log(model)
-  console.log(bucket)
-
+  /*   console.log(model)
+    console.log(bucket) */
+  const urn = Buffer.from(model.objectId).toString('base64')
+  const manifest = await new DerivativesApi().getManifest(urn,{},req.oauth_client,req.oauth_token)
+  console.log(manifest)
   const returnObj = {
-    createdAt:model.createdAt,
+    createdAt: model.createdAt,
     modelId: model.id,
     bucket: model.bucketKey,
     user: user,
-    id: Buffer.from(model.objectId).toString('base64'),
-    text: model.objectKey 
+    id: urn,
+    text: model.objectKey
   }
-res.status(200).json(returnObj)
+  res.status(200).json(returnObj)
 })
 export default modelData

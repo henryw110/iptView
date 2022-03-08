@@ -16,11 +16,9 @@ const ShowModel = (props) => {
   }
   const params = useParams()
   launchViewer(response.id)
-  console.log(response)
+  
 
   useEffect(() => {
-    getModelData()
-    getModelData()
     getModelData()
 
   }, [])

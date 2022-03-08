@@ -30,7 +30,6 @@
     "babel-loader": "~8.1",
     "css-loader": "^5.0.0",
     "file-loader": "^6.2.0",
-    "forge-apis": "^0.8.6",
     "foundation-sites": "^6.7.4",
     "fs": "^0.0.1-security",
     "html-webpack-plugin": "^5.2.0",
